@@ -1,0 +1,10 @@
+{
+
+    books{
+        name
+        author{
+            firstName
+        }
+    }
+}
+
