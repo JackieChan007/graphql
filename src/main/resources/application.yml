@@ -1,6 +1,8 @@
 spring:
   application:
     name: graphql
+  aop:
+    proxy-target-class: false
 server:
   port: 8080
 #management:

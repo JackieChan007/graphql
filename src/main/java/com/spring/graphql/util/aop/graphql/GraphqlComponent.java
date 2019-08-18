@@ -14,6 +14,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Inherited
 @Component
 public @interface GraphqlComponent {
     String dataFetchers() default "";

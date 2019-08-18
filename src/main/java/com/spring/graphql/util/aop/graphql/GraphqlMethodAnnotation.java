@@ -1,5 +1,7 @@
 package com.spring.graphql.util.aop.graphql;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,7 +12,10 @@ import java.lang.annotation.*;
  * @Description: services生成datafetcher
  */
 @Target({ElementType.METHOD,ElementType.TYPE})
+//@Retention(RetentionPolicy.CLASS)
 @Retention(RetentionPolicy.RUNTIME)
+@Component
+@Inherited
 @Documented
 public @interface GraphqlMethodAnnotation {
     String dataFetcherName() default "";

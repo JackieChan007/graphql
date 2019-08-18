@@ -1,6 +1,9 @@
 package com.spring.graphql.service.graphql.datafetcher;
 
 import com.google.common.collect.ImmutableMap;
+import com.spring.graphql.service.GraphqlInterface;
+import com.spring.graphql.util.aop.graphql.GraphqlComponent;
+import com.spring.graphql.util.aop.graphql.GraphqlMethodAnnotation;
 import graphql.schema.DataFetcher;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +17,8 @@ import java.util.Map;
  * @version: 1.0
  * @description：graphql数据获取（每个方法建立不同的datafetcher）
  */
-@Component
-public class GraphQLDataFetchers {
+@GraphqlComponent
+public class GraphQLDataFetchers implements GraphqlInterface {
     private static List<Map<String, String>> books = Arrays.asList(
             ImmutableMap.of("id", "book-1",
                     "name", "Harry Potter and the Philosopher's Stone",
@@ -43,6 +46,7 @@ public class GraphQLDataFetchers {
                     "lastName", "Rice")
     );
 
+    @GraphqlMethodAnnotation(typeName = "Query",dataFetcherName = "getBookByIdDataFetcher")
     public DataFetcher getBookByIdDataFetcher() {
         return dataFetchingEnvironment -> {
             String bookId = dataFetchingEnvironment.getArgument("id");
