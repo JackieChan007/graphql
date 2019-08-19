@@ -50,14 +50,6 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
 //                System.err.println(bean==null?"null":bean.getClass().getName());
                 if (bean != null) {
                     //判断类是否是动态代理类
-//                    if (AopUtils.isAopProxy(bean)) {
-//                        log.info("bean:{} is proxy class", bean);
-//                        if (AopUtils.isJdkDynamicProxy(bean)) {
-//                            log.info("bean:{} is JdkDynamic class", bean);
-//                        } else if (AopUtils.isCglibProxy(bean)) {
-//                            log.info("bean:{} is CglibProxy class", bean);
-//                        }
-//                    }
                     Object targetClass = null;
                     try {
                         targetClass = DynamicProxyTargetSourceUtil.getTarget(bean);
@@ -67,6 +59,7 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
                         e.printStackTrace();
                     }
                     Annotation[] targetAnnos = null;
+                    //cglib动态代理类无法获取方法注解，通过目标类获取注解
                     Method[] methods = targetClass.getClass().getMethods();
                     for (Method method : methods) {
                         GraphqlMethodAnnotation graphqlMethodAnnotation = method.getAnnotation(GraphqlMethodAnnotation.class);
